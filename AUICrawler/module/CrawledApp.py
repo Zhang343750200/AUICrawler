@@ -96,6 +96,7 @@ class App:
             del plan, e
             return []
 
+    # 获取app名称
     def get_app_name(self, plan):
         try:
             command = 'aapt dump badging ' + self.apkPath
@@ -114,6 +115,7 @@ class App:
             del plan, e
             return ""
 
+    # 获取app包名
     @staticmethod
     def get_package_name(plan, apk_path):
         try:
@@ -134,6 +136,7 @@ class App:
             del apk_path, e
             return ""
 
+    # 获取代码版本号（测试）
     def get_version_code(self, plan):
         try:
             command = 'aapt dump badging ' + self.apkPath
@@ -154,6 +157,7 @@ class App:
             del plan, e
             return ''
 
+    # 获取代码版本号（公开）
     def get_version_name(self, plan):
         try:
             command = 'aapt dump badging ' + self.apkPath
@@ -174,6 +178,7 @@ class App:
             del plan, e
             return ''
 
+    # 获取第一个启动的Activity
     def get_launcher_activity(self, plan):
         try:
             command = 'aapt dump badging ' + self.apkPath
@@ -192,9 +197,10 @@ class App:
             del plan, e
             return ''
 
+    # 获取App MainActivity
     def get_main_activity(self, plan):
         try:
-            main_activity = Setting.AppMainActivity[self.packageName]
+            main_activity = Setting.AppMainActivity[self.packageName]  # 需要手动设置 Setting.AppMainActivity 的值
             del plan
             return main_activity
         except Exception as e:
@@ -202,9 +208,10 @@ class App:
             del plan, e
             return ''
 
+    # 获取App LoginActivity
     def get_login_activity(self, plan):
         try:
-            login_activity = Setting.AppLoginActivity[self.packageName]
+            login_activity = Setting.AppLoginActivity[self.packageName] # 需要手动设置 Setting.AppLoginActivity 的值
             del plan
             return login_activity
         except Exception as e:
@@ -212,6 +219,7 @@ class App:
             del plan, e
             return ''
 
+    # 获取App所有Activity
     def get_all_activities(self, plan):
         try:
             activity_list = []

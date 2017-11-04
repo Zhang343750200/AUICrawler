@@ -25,12 +25,14 @@ class Plan:
     # change the node info ,because the same type nodes has difference bounds.
     # the same type nodes need crawl once only
 
+    # 创建目录保存结果
     def create_this_time_folder(self):
         path = os.getcwd() + '/result/' + self.runCaseTime.strftime('%Y%m%d%H%M%S')
         if not os.path.exists(path):
             os.makedirs(path)
         return path
 
+    # 获取设备列表
     def get_device_list(self, app):
         device_list = []
         string = '	'
@@ -52,6 +54,7 @@ class Plan:
         self.deviceNum = str(len(device_list))
         del device_list, string, outLine
 
+    # 获取 device 实例列表
     def update_device_list(self, id_list):
         device_list = []
         for device_id in id_list:
@@ -61,6 +64,3 @@ class Plan:
         self.deviceList = device_list
         self.deviceNum = str(len(device_list))
         del device_list
-
-
-

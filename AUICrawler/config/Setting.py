@@ -18,7 +18,7 @@ CoverageLevel = 1  # 0 < level <= 1 , Exp level = 0.6 , if there are 10 points i
 #  - * Apk Install Setting * -
 UnInstallApk = True  # True (uninstall app & testApp) , False
 InstallApk = True  # True (install app & testApp) ,False
-ApkPath = '/Users/admin/Downloads/xxxxxxx.apk'
+ApkPath = '/Users/zhangyi/Github/AUICrawler/AUICrawler/sample/cn.call4papers.apk'
 TestApkPath = '/Users/admin/Downloads/xxxxx-androidTest.apk'
 
 
@@ -47,7 +47,7 @@ InitCases = {'com.xxxx.xxxx': ['com.xxxx.xxxx.cases.xxxx'],
 TestRunner = 'com.android.test.runner.MultiDexTestRunner'
 
 #  - * Login Setting * -
-Login = True  # True (if crawl to the loginActivity, login & continue crawl)
+Login = False  # True (if crawl to the loginActivity, login & continue crawl)
 AppLoginActivity = {'com.xxx.xxx': 'com.xxx.LoginActivity',
                     'packageName': 'loginActivity'}
 

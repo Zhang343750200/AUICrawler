@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-
 import os
 import re
 import datetime
@@ -36,6 +35,7 @@ class Device:
         self.failedTime = 0
         self.page_now = PageInfo.Page()
 
+    # 获取设备的状态信息 unConnect/powerOff、unlock、screenlocked
     def get_device_statue(self):
         if platform.system() != "Windows":
             check_lock_command = "adb -s " + self.id + " shell dumpsys window policy | grep mShowingLockscreen"
@@ -65,6 +65,7 @@ class Device:
                 del check_lock_command, check_keyguard_statue, check_lock_statue, check_keyguard_command, str1, str2, str3, str4, index1, index2, index3, index4
                 return "screenlocked"
 
+    # 创建 device 的日志目录
     def create_device_folder(self, plan):
         deviceid = self.id
         if '.' in deviceid:
@@ -77,6 +78,7 @@ class Device:
         del plan, deviceid
         return path
 
+    # 获取屏幕分辨率
     def get_screen_resolution(self):
         Saver.save_crawler_log(self.logPath, "Step : get screen resolution")
         command = 'adb -s ' + self.id + ' shell dumpsys window'
@@ -96,6 +98,7 @@ class Device:
         del command, result, x, y
         return resolution
 
+    # 创建截图保存目录
     def create_screenshot_folder(self):
         path = self.logPath + '/Screenshot'
         Saver.save_crawler_log(self.logPath, "Step : creat screenshot folder")
@@ -103,6 +106,7 @@ class Device:
             os.makedirs(path)
         return path
 
+    # 获取设备名称
     def get_device_name(self):
         command = 'adb -s ' + self.id + ' shell getprop ro.product.name'
         device_name = os.popen(command).read()
@@ -110,6 +114,7 @@ class Device:
         del command
         return device_name
 
+    # 获取设备型号
     def get_device_model(self):
         command = 'adb -s ' + self.id + ' shell getprop ro.product.model'
         model = os.popen(command).read()
@@ -117,6 +122,7 @@ class Device:
         del command
         return model
 
+    # 获取系统版本号
     def get_device_sys_version(self):
         command = 'adb -s ' + self.id + ' shell getprop ro.build.version.release'
         result = os.popen(command).read()
@@ -124,6 +130,7 @@ class Device:
         del command
         return result
 
+    # 更新Device状态信息
     def update_crawl_statue(self, statue):
         Saver.save_crawler_log(self.logPath, "Step : Update crawl statue from " + self.crawlStatue + ' to ' + statue)
         self.crawlStatue = statue
@@ -187,6 +194,7 @@ class Device:
             self.hasCrawledPage.append(nodes_info_list)
         del nodes_info_list
 
+    #  记录开始遍历的时间点
     def update_begin_crawl_time(self):
         self.beginCrawlTime = datetime.datetime.now()
 

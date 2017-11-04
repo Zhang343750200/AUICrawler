@@ -14,7 +14,7 @@ import nodeController
 import xml.dom.minidom
 import platform
 
-
+# 获取栈顶的包名、活动名 
 def get_top_activity_info(device):
     Saver.save_crawler_log(device.logPath, "Step : get top activity info")
     # linux:

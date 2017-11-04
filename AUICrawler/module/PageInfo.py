@@ -4,7 +4,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
 class Page:
     def __init__(self):
         self.nodesList = []

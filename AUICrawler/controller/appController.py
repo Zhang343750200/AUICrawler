@@ -11,7 +11,7 @@ import pageController
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
+# 安装App
 def install_app(device, apk_path):
     try:
         if os.path.exists(apk_path):
@@ -24,7 +24,7 @@ def install_app(device, apk_path):
         del device, apk_path, e
         Saver.save_crawler_log(device.logPath, 'install app catch exception')
 
-
+# 卸载App
 def uninstall_app(device, package_name):
     try:
         Saver.save_crawler_log(device.logPath, 'Step : uninstall app : ' + package_name)
@@ -36,7 +36,7 @@ def uninstall_app(device, package_name):
         del device, package_name, e
         Saver.save_crawler_log(device.logPath, 'uninstall app catch exception')
 
-
+# 判断App是否安装
 def app_is_installed(device, package_name):
     Saver.save_crawler_log(device.logPath, "Step : check app is installed or not")
     command = 'adb -s ' + device.id + " shell pm list package"
@@ -68,7 +68,7 @@ def app_is_running(device, app):
     del command, output, lines, device, app
     return False
 
-
+# 清除 adb logcat 日志信息
 def clean_device_logcat(device):
     Saver.save_crawler_log(device.logPath, "Step : clean device logcat cache")
     command = 'adb -s ' + device.id + ' logcat -c'
