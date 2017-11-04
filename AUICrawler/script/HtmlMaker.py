@@ -307,13 +307,13 @@ def mack_crawl_result_html(plan, app):
                 nodesCover = nodesCover[1:]
         failedNum = str(device.failedTime)
         crawlTime = str((device.endCrawlTime - device.beginCrawlTime).seconds)
-        if device.crawlStatue == "Passed":
+        if device.crawlstate == "Passed":
             result = "                   <span style ='color: green;'>\n" \
                      "                   " + "Passed" + \
                      "\n                   </span>\n"
         else:
             result = "                   <span style ='color: red;'>\n" \
-                     "                   " + device.crawlStatue + \
+                     "                   " + device.crawlstate + \
                      "\n                   </span>\n"
         result_body = "       <tr valign=\"top\" class=\"Failure\">\n" \
                       "            <td align=\"center\" style=\"background: #f5f5dc;white-space: nowrap;\">" + name + "</td>\n" \

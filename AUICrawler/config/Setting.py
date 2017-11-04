@@ -18,7 +18,7 @@ CoverageLevel = 1  # 0 < level <= 1 , Exp level = 0.6 , if there are 10 points i
 #  - * Apk Install Setting * -
 UnInstallApk = True  # True (uninstall app & testApp) , False
 InstallApk = True  # True (install app & testApp) ,False
-ApkPath = '/Users/zhangyi/Github/AUICrawler/AUICrawler/sample/cn.call4papers.apk'
+ApkPath = '/Users/zhangyi/Github/AUICrawler/AUICrawler/sample/com.htinns.apk'
 TestApkPath = '/Users/admin/Downloads/xxxxx-androidTest.apk'
 
 

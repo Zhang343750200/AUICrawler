@@ -336,7 +336,7 @@ def init_application(plan, app, device):
 
 
 def run_test(plan, app, device):
-    if device.statue == "unlock":
+    if device.state == "unlock":
         Saver.save_crawler_log_both(plan.logPath, device.logPath, "Step : Begin test ")
 
         # init device
@@ -352,16 +352,16 @@ def run_test(plan, app, device):
             appController.install_app(device, app.apkPath)
             appController.install_app(device, app.testApkPath)
         if not appController.app_is_installed(device, app.packageName):
-            device.update_crawl_statue("InstallExc")
-        Saver.save_crawler_log_both(plan.logPath, device.logPath, device.crawlStatue)
+            device.update_crawl_state("InstallExc")
+        Saver.save_crawler_log_both(plan.logPath, device.logPath, device.crawlstate)
 
-        if device.crawlStatue != "InstallExc":
+        if device.crawlstate != "InstallExc":
             # init app
-            device.update_crawl_statue("Initing")
+            device.update_crawl_state("Initing")
             init_application(plan, app, device)
 
             # begin crawl
-            device.update_crawl_statue("Running")
+            device.update_crawl_state("Running")
             if Setting.CrawlModel == 'Normal' or Setting.CrawlModel == 'Random':
                 Saver.save_crawler_log_both(plan.logPath, device.logPath, "Step : begin to crawl main nodes")
                 appController.start_activity(device, app.packageName, app.mainActivity)
@@ -385,11 +385,11 @@ def run_test(plan, app, device):
                 len(device.unCrawledNodes)) + " unCrawled nodes .")
             Saver.save_crawler_log_both(plan.logPath, device.logPath, "Step : " + device.id + " has Crawled " + str(
                 len(device.hasCrawledActivities)) + " activities .")
-            if device.crawlStatue == "Running":
-                device.update_crawl_statue('Passed')
+            if device.crawlstate == "Running":
+                device.update_crawl_state('Passed')
                 plan.passedDevice += 1
             else:
                 plan.failedDevice += 1
     else:
-        device.update_crawl_statue('DeviceExc')
+        device.update_crawl_state('DeviceExc')
         del plan, app, device

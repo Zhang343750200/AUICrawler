@@ -14,7 +14,7 @@ import nodeController
 import xml.dom.minidom
 import platform
 
-# 获取栈顶的包名、活动名 
+# 获取栈顶的包名、活动名
 def get_top_activity_info(device):
     Saver.save_crawler_log(device.logPath, "Step : get top activity info")
     # linux:
@@ -214,14 +214,14 @@ def check_activity_after_operation(plan, app, device, crawl_activity, page_befor
                                             crawl_activity) and Setting.KeepRun:
                 appController.kill_app(app)
                 appController.start_activity(device, app.packageName, crawl_activity)
-                device.statue = device.get_device_statue()
-                if device.statue != "unlock":
+                device.state = device.get_device_state()
+                if device.state != "unlock":
                     Saver.save_crawler_log_both(plan.logPath, device.logPath,
-                                                "Step : device " + device.crawlStatue + ', break crawling..')
+                                                "Step : device " + device.crawlstate + ', break crawling..')
                     return None
             else:
                 Saver.save_crawler_log_both(plan.logPath, device.logPath,
-                                            "Step : crawl app " + device.crawlStatue + ', break crawling..')
+                                            "Step : crawl app " + device.crawlstate + ', break crawling..')
                 return None
         Saver.save_crawler_log(device.logPath, 'back to ' + crawl_activity)
         device.save_screen_jump_out(package, activity)
@@ -332,7 +332,7 @@ def check_page_after_operation(plan, app, device, page_before_run, node):
                 appController.start_activity(device, app.packageName, app.launcherActivity)
             else:
                 Saver.save_crawler_log_both(plan.logPath, device.logPath,
-                                            "Step : crawl app " + device.crawlStatue + ', break crawling..')
+                                            "Step : crawl app " + device.crawlstate + ', break crawling..')
                 del plan, app, device, package, activity
                 return None
         Saver.save_crawler_log(device.logPath, 'back to ' + app.packageName)

@@ -14,8 +14,8 @@ class Device:
         Saver.save_crawler_log(plan.logPath, "Step : Init device : " + device_id)
         self.id = device_id
         Saver.save_crawler_log(plan.logPath, "id : " + self.id)
-        self.statue = self.get_device_statue()
-        Saver.save_crawler_log(plan.logPath, "statue : " + self.statue)
+        self.state = self.get_device_state()
+        Saver.save_crawler_log(plan.logPath, "state : " + self.state)
         self.logPath = self.create_device_folder(plan)
         self.name = self.get_device_name()
         self.model = self.get_device_model()
@@ -31,38 +31,38 @@ class Device:
         self.hasCrawledActivities = []
         self.saveScreenNum = 0
         self.jump_out_time = 0
-        self.crawlStatue = "Uninit"
+        self.crawlstate = "Uninit"
         self.failedTime = 0
         self.page_now = PageInfo.Page()
 
     # 获取设备的状态信息 unConnect/powerOff、unlock、screenlocked
-    def get_device_statue(self):
+    def get_device_state(self):
         if platform.system() != "Windows":
             check_lock_command = "adb -s " + self.id + " shell dumpsys window policy | grep mShowingLockscreen"
             check_keyguard_command = "adb -s " + self.id + " shell dumpsys window policy | grep isStatusBarKeyguard"
         else:
             check_lock_command = "adb -s " + self.id + " shell dumpsys window policy | findstr mShowingLockscreen"
             check_keyguard_command = "adb -s " + self.id + " shell dumpsys window policy | findstr isStatusBarKeyguard"
-        check_lock_statue = os.popen(check_lock_command).read()
-        check_keyguard_statue = os.popen(check_keyguard_command).read()
-        if check_lock_statue == "" and check_keyguard_statue == "":
+        check_lock_state = os.popen(check_lock_command).read()
+        check_keyguard_state = os.popen(check_keyguard_command).read()
+        if check_lock_state == "" and check_keyguard_state == "":
             return "unConnect/powerOff"
         else:
             str1 = 'mShowingLockscreen='
             str2 = 'mShowingDream='
             str3 = 'isStatusBarKeyguard='
             str4 = 'mNavigationBar='
-            index1 = check_lock_statue.find(str1)
-            index2 = check_lock_statue.find(str2)
-            index3 = check_keyguard_statue.find(str3)
-            index4 = check_keyguard_statue.find(str4)
-            check_lock_statue = check_lock_statue[index1 + len(str1):index2 - 1]
-            check_keyguard_statue = check_keyguard_statue[index3 + len(str3):index4 - 4]
-            if check_lock_statue != 'true' and check_keyguard_statue != 'true':
-                del check_lock_command, check_keyguard_statue, check_lock_statue, check_keyguard_command, str1, str2, str3, str4, index1, index2, index3, index4
+            index1 = check_lock_state.find(str1)
+            index2 = check_lock_state.find(str2)
+            index3 = check_keyguard_state.find(str3)
+            index4 = check_keyguard_state.find(str4)
+            check_lock_state = check_lock_state[index1 + len(str1):index2 - 1]
+            check_keyguard_state = check_keyguard_state[index3 + len(str3):index4 - 4]
+            if check_lock_state != 'true' and check_keyguard_state != 'true':
+                del check_lock_command, check_keyguard_state, check_lock_state, check_keyguard_command, str1, str2, str3, str4, index1, index2, index3, index4
                 return "unlock"
             else:
-                del check_lock_command, check_keyguard_statue, check_lock_statue, check_keyguard_command, str1, str2, str3, str4, index1, index2, index3, index4
+                del check_lock_command, check_keyguard_state, check_lock_state, check_keyguard_command, str1, str2, str3, str4, index1, index2, index3, index4
                 return "screenlocked"
 
     # 创建 device 的日志目录
@@ -131,10 +131,10 @@ class Device:
         return result
 
     # 更新Device状态信息
-    def update_crawl_statue(self, statue):
-        Saver.save_crawler_log(self.logPath, "Step : Update crawl statue from " + self.crawlStatue + ' to ' + statue)
-        self.crawlStatue = statue
-        del statue
+    def update_crawl_state(self, state):
+        Saver.save_crawler_log(self.logPath, "Step : Update crawl state from " + self.crawlstate + ' to ' + state)
+        self.crawlstate = state
+        del state
 
     def update_device_account(self, account):
         Saver.save_crawler_log(self.logPath, "Step : Update account : " + str(account))

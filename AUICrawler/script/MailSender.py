@@ -36,9 +36,9 @@ def send_failed_mail_first(plan, app, device):
     file_name = device.logPath + '/' + 'errorLog' + str(device.failedTime) +'.txt'
     me = "AUICrawler" + "<" + Setting.Mail_User + ">"
     main_msg = MIMEMultipart.MIMEMultipart()
-    text = device.crawlStatue + " in " + str(device.id) + ' when crawl ' + str(
+    text = device.crawlstate + " in " + str(device.id) + ' when crawl ' + str(
         app.appName) + ' , please check the logcat file in attachment . \n' + \
-        ' I will reCrawl this node again for check is necessary ' + device.crawlStatue + ' or not . \n\n'
+        ' I will reCrawl this node again for check is necessary ' + device.crawlstate + ' or not . \n\n'
     msg = MIMEText(text + plan.resultHtml, _subtype='html', _charset='utf-8')
     main_msg.attach(msg)
 
@@ -78,9 +78,9 @@ def send_failed_mail_necessary(plan, app, device, node):
     file_name = device.logPath + '/' + 'errorLog' + str(device.failedTime) + '.txt'
     me = "AUICrawler" + "<" + Setting.Mail_User + ">"
     main_msg = MIMEMultipart.MIMEMultipart()
-    text = device.crawlStatue + " again in " + str(device.id) + ' when crawl ' + str(
+    text = device.crawlstate + " again in " + str(device.id) + ' when crawl ' + str(
         app.appName) + ' , please check the screenshot and the logcat file in attachment . \n' + \
-        ' Crawl this node is necessary to make app ' + device.crawlStatue + '. \n\n'
+        ' Crawl this node is necessary to make app ' + device.crawlstate + '. \n\n'
     msg = MIMEText(text + plan.resultHtml, _subtype='html', _charset='utf-8')
     main_msg.attach(msg)
     resource_id = node.resource_id
@@ -116,7 +116,7 @@ def send_failed_mail_necessary(plan, app, device, node):
 def send_failed_mail_un_necessary(plan, app, device):
     me = "AUICrawler" + "<" + Setting.Mail_User + ">"
     main_msg = MIMEMultipart.MIMEMultipart()
-    text = "App don't " + device.crawlStatue + " after reCrawl on " + str(device.id) + ' when crawl ' + str(
+    text = "App don't " + device.crawlstate + " after reCrawl on " + str(device.id) + ' when crawl ' + str(
         app.appName) + ' , check the log file in last mail , please .\n\n'
     msg = MIMEText(text + plan.resultHtml, _subtype='html', _charset='utf=8')
     main_msg.attach(msg)
